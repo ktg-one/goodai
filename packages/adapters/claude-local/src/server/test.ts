@@ -23,9 +23,6 @@ function summarizeStatus(checks: AdapterEnvironmentCheck[]): AdapterEnvironmentT
   return "pass";
 }
 
-function isNonEmpty(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0;
-}
 
 function firstNonEmptyLine(text: string): string {
   return (
@@ -95,25 +92,11 @@ export async function testEnvironment(
     });
   }
 
-  const configApiKey = env.ANTHROPIC_API_KEY;
-  const hostApiKey = process.env.ANTHROPIC_API_KEY;
-  if (isNonEmpty(configApiKey) || isNonEmpty(hostApiKey)) {
-    const source = isNonEmpty(configApiKey) ? "adapter config env" : "server environment";
-    checks.push({
-      code: "claude_anthropic_api_key_overrides_subscription",
-      level: "warn",
-      message:
-        "ANTHROPIC_API_KEY is set. Claude will use API-key auth instead of subscription credentials.",
-      detail: `Detected in ${source}.`,
-      hint: "Unset ANTHROPIC_API_KEY if you want subscription-based Claude login behavior.",
-    });
-  } else {
-    checks.push({
-      code: "claude_subscription_mode_possible",
-      level: "info",
-      message: "ANTHROPIC_API_KEY is not set; subscription-based auth can be used if Claude is logged in.",
-    });
-  }
+  checks.push({
+    code: "claude_subscription_mode",
+    level: "info",
+    message: "Claude will use subscription auth (Max plan). ANTHROPIC_API_KEY is stripped from the host environment.",
+  });
 
   const canRunProbe =
     checks.every((check) => check.code !== "claude_cwd_invalid" && check.code !== "claude_command_unresolvable");

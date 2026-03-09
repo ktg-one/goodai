@@ -98,14 +98,9 @@ function buildLoginResult(input: {
   };
 }
 
-function hasNonEmptyEnvValue(env: Record<string, string>, key: string): boolean {
-  const raw = env[key];
-  return typeof raw === "string" && raw.trim().length > 0;
-}
-
-function resolveClaudeBillingType(env: Record<string, string>): "api" | "subscription" {
-  // Claude uses API-key auth when ANTHROPIC_API_KEY is present; otherwise rely on local login/session auth.
-  return hasNonEmptyEnvValue(env, "ANTHROPIC_API_KEY") ? "api" : "subscription";
+function resolveClaudeBillingType(): "subscription" {
+  // Always use subscription (Max plan) billing — never inherit ANTHROPIC_API_KEY from host.
+  return "subscription";
 }
 
 async function buildClaudeRuntimeConfig(input: ClaudeExecutionInput): Promise<ClaudeRuntimeConfig> {
@@ -204,7 +199,9 @@ async function buildClaudeRuntimeConfig(input: ClaudeExecutionInput): Promise<Cl
     env.PAPERCLIP_API_KEY = authToken;
   }
 
-  const runtimeEnv = ensurePathInEnv({ ...process.env, ...env });
+  // Strip ANTHROPIC_API_KEY from host env so Claude Code uses subscription auth (Max plan).
+  const { ANTHROPIC_API_KEY: _stripApiKey, ...hostEnv } = process.env;
+  const runtimeEnv = ensurePathInEnv({ ...hostEnv, ...env });
   await ensureCommandResolvable(command, cwd, runtimeEnv);
 
   const timeoutSec = asNumber(config.timeoutSec, 0);
@@ -303,7 +300,7 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
     graceSec,
     extraArgs,
   } = runtimeConfig;
-  const billingType = resolveClaudeBillingType(env);
+  const billingType = resolveClaudeBillingType();
   const skillsDir = await buildSkillsDir();
 
   // When instructionsFilePath is configured, create a combined temp file that
