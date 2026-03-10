@@ -1,0 +1,72 @@
+{
+  "mcpServers": {
+    "jcodemunch": {
+      "command": "uvx",
+      "args": ["jcodemunch-mcp"],
+      "env": {}
+    },
+    "reme": {
+      "command": "reme",
+      "args": [
+        "backend=mcp",
+        "mcp.transport=stdio",
+        "vector_store.default.backend=local_file"
+      ],
+      "env": {}
+    },
+    "n8n": {
+      "command": "npx",
+      "args": ["-y", "n8n-mcp"],
+      "env": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true",
+        "N8N_API_URL": "http://localhost:5678",
+        "N8N_API_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTJlNTVlOS1kN2RlLTRkMzctOWU0Ni1jMjA1ZjdiOTYwZDYiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiZmE1MjgxM2QtMjA1ZS00NDM1LTgxYmItN2JkYWU0OWE2ODZjIiwiaWF0IjoxNzcwNDkxNjcyfQ.H1JyHE6o0lrw81kDBrllGZfU1iJxwLvGBHe-DN0Wyv0"
+      }
+    },
+    "serena": {
+      "command": "uvx",
+      "args": ["serena", "start-mcp-server"],
+      "env": {}
+    },
+    "pal": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "for p in $(which uvx 2>/dev/null) $HOME/.local/bin/uvx /usr/local/bin/uvx uvx; do [ -x \"$p\" ] && exec \"$p\" --from git+https://github.com/BeehiveInnovations/pal-mcp-server.git pal-mcp-server; done; echo 'uvx not found' >&2; exit 1"
+      ],
+      "env": {
+        "DEFAULT_MODEL": "auto"
+      }
+    },
+    "mem0": {
+      "command": "uvx",
+      "args": ["mem0-mcp-server"],
+      "env": {
+        "MEM0_API_KEY": "m0-laKuxrKjvIQvkZiDx5TXOt6U45JaRKtLhEJJtRBM",
+        "MEM0_DEFAULT_USER_ID": "kevinktg"
+      }
+    },
+    "in-memoria": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "env": {}
+    },
+    "obsidian": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "http://localhost:22360/sse"],
+      "env": {}
+    },
+    "gws": {
+      "command": "npx",
+      "args": ["-y", "gws", "mcp"],
+      "env": {}
+    },
+    "notebooklm": {
+      "command": "npx",
+      "args": ["-y", "notebooklm-mcp"],
+      "env": {}
+    }
+  }
+}
