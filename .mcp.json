@@ -21,8 +21,8 @@
         "MCP_MODE": "stdio",
         "LOG_LEVEL": "error",
         "DISABLE_CONSOLE_OUTPUT": "true",
-        "N8N_API_URL": "http://localhost:5678",
-        "N8N_API_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTJlNTVlOS1kN2RlLTRkMzctOWU0Ni1jMjA1ZjdiOTYwZDYiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiZmE1MjgxM2QtMjA1ZS00NDM1LTgxYmItN2JkYWU0OWE2ODZjIiwiaWF0IjoxNzcwNDkxNjcyfQ.H1JyHE6o0lrw81kDBrllGZfU1iJxwLvGBHe-DN0Wyv0"
+        "N8N_API_URL": "https://ai-yah-old.blowfish-snares.ts.net",
+        "N8N_API_KEY": 
       }
     },
     "serena": {
@@ -44,7 +44,7 @@
       "command": "uvx",
       "args": ["mem0-mcp-server"],
       "env": {
-        "MEM0_API_KEY": "m0-laKuxrKjvIQvkZiDx5TXOt6U45JaRKtLhEJJtRBM",
+        "MEM0_API_KEY": "",
         "MEM0_DEFAULT_USER_ID": "kevinktg"
       }
     },
