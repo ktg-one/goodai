@@ -54,6 +54,25 @@ Available PAL tools (non-disabled): `chat`, `thinkdeep`, `codereview`, `consensu
 
 ---
 
+## GWS (MCP: `gws`)
+**Purpose**: Google Workspace CLI — alternative/complement to `google-workspace` MCP.
+**Use for**: Google Workspace operations via the GWS CLI interface.
+
+---
+
+## mem0 (MCP: `mem0`)
+**Purpose**: Persistent cross-session memory storage.
+**Use for**: Storing decisions, context, and facts that need to survive across heartbeat sessions.
+NOTE: Requires `MEM0_API_KEY` to be set in `.mcp.json` — check with board if not working.
+
+---
+
+## NotebookLM (MCP: `notebooklm`)
+**Purpose**: Google NotebookLM integration.
+**Use for**: Creating and querying research notebooks from document content.
+
+---
+
 ## Serena (MCP: `serena`)
 **Purpose**: Symbolic code intelligence for this codebase.
 **Use for**: Reading Paperclip source code if you need to understand API behaviour. Rarely needed in normal operation.

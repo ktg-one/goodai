@@ -9,7 +9,7 @@ const tailscaleAuthFlagNames = new Set([
   "--authenticated-private",
 ]);
 
-let tailscaleAuth = false;
+let tailscaleAuth = true;
 const forwardedArgs = [];
 
 for (const arg of cliArgs) {
@@ -57,4 +57,3 @@ child.on("exit", (code, signal) => {
   }
   process.exit(code ?? 0);
 });
-
