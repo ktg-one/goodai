@@ -22,13 +22,18 @@
         "LOG_LEVEL": "error",
         "DISABLE_CONSOLE_OUTPUT": "true",
         "N8N_API_URL": "https://ai-yah-old.blowfish-snares.ts.net",
-        "N8N_API_KEY": 
+        "N8N_API_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTJlNTVlOS1kN2RlLTRkMzctOWU0Ni1jMjA1ZjdiOTYwZDYiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiYTBjZjdjMWItN2ExYS00MDRmLTk5M2EtZDcyYWI5ZjgyMTk1IiwiaWF0IjoxNzcwODgwNzQ0fQ.YmF-6ZO3xiY19iBRpJ3TmN9pLSpd13JyBEa5t0KXK9g"
       }
     },
     "serena": {
+      "type": "stdio",
       "command": "uvx",
-      "args": ["serena", "start-mcp-server"],
-      "env": {}
+      "args": [
+        "--from", "git+https://github.com/oraios/serena",
+        "serena", "start-mcp-server",
+        "--context", "claude-code",
+        "--project", "/home/kevin/projects/goodai"
+      ]
     },
     "pal": {
       "command": "bash",
@@ -37,6 +42,7 @@
         "for p in $(which uvx 2>/dev/null) $HOME/.local/bin/uvx /usr/local/bin/uvx uvx; do [ -x \"$p\" ] && exec \"$p\" --from git+https://github.com/BeehiveInnovations/pal-mcp-server.git pal-mcp-server; done; echo 'uvx not found' >&2; exit 1"
       ],
       "env": {
+        "GEMINI_API_KEY": "AIzaSyD5dr07wCzFwz5-aX8gV4bn6fBY-gyVwhY",
         "DEFAULT_MODEL": "auto"
       }
     },
@@ -50,17 +56,20 @@
     },
     "in-memoria": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "args": ["-y", "in-memoria", "server"]
+    },
+    "google-workspace": {
+      "command": "npx",
+      "args": ["-y", "google-workspace-mcp", "serve"]
+    },
+    "gws": {
+      "command": "npx",
+      "args": ["-y", "gws", "mcp"],
       "env": {}
     },
     "obsidian": {
       "command": "npx",
       "args": ["-y", "mcp-remote", "http://localhost:22360/sse"],
-      "env": {}
-    },
-    "gws": {
-      "command": "npx",
-      "args": ["-y", "gws", "mcp"],
       "env": {}
     },
     "notebooklm": {
